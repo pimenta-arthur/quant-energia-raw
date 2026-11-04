@@ -10,8 +10,8 @@ else BASE="https://github.com/$REPO/releases/download/$REL"; fi
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 curl -fsSL "$BASE/SHA256SUMS" -o "$TMP/SHA256SUMS"
 while read -r _ nome; do
-  echo "baixando $nome…"
-  curl -fSL "$BASE/$nome" -o "$TMP/$nome"
+  echo "baixando ${nome}..."
+  curl -fsSL "$BASE/$nome" -o "$TMP/$nome"
 done < "$TMP/SHA256SUMS"
 (cd "$TMP" && shasum -a 256 -c SHA256SUMS)
 mkdir -p "$DEST"
